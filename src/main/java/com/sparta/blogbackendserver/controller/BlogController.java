@@ -27,8 +27,8 @@ public class BlogController {
     }
 
     @GetMapping("/posts/{id}") // 선택 게시글 조회
-    public List<BlogResponseDto> getBlogsByKeyword(@RequestParam String keyword) {
-        return blogService.getBlogsByKeyword(keyword);
+    public BlogResponseDto getSelectBlog(@PathVariable Long id) {
+        return blogService.getSelectBlog(id);
     }
 
     @PutMapping("/posts/{id}") // 선택 게시글 수정
