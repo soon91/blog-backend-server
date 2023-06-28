@@ -44,14 +44,15 @@ public class BlogService {
     }
 
     @Transactional
-    public Long updateBlog(Long id, BlogRequestDto requestDto) { // 선택 게시글 수정
+    public BlogResponseDto updateBlog(Long id, BlogRequestDto requestDto) { // 선택 게시글 수정
         // 해당 게시글이 DB에 존재하는지 확인
         Blog blog = findBlog(id);
+        if (requestDto.getPassword().equals(blog.getPassword())) {
+            // 게시글 내용 수정
+            blog.update(requestDto);
 
-        // 게시글 내용 수정
-        blog.update(requestDto);
-
-        return id;
+            return new BlogResponseDto(blog);
+        } else return new BlogResponseDto(blog);
     }
 
     public Long deleteBlog(Long id) { // 선택 게시글 삭제

@@ -32,7 +32,7 @@ public class BlogController {
     }
 
     @PutMapping("/posts/{id}") // 선택 게시글 수정
-    public Long updateBlog(@PathVariable Long id, @RequestBody BlogRequestDto requestDto) {
+    public BlogResponseDto updateBlog(@PathVariable Long id, @RequestBody BlogRequestDto requestDto) {
         return blogService.updateBlog(id, requestDto);
     }
 
