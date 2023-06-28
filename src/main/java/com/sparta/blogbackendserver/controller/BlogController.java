@@ -16,27 +16,27 @@ public class BlogController {
         this.blogService = blogService;
     }
 
-    @PostMapping("/memos")
+    @PostMapping("/posts") // 게시글 작성
     public BlogResponseDto createBlog(@RequestBody BlogRequestDto requestDto) {
         return blogService.createBlog(requestDto);
     }
 
-    @GetMapping("/memos")
+    @GetMapping("/posts") // 전체 게시글 조회
     public List<BlogResponseDto> getBlogs() {
         return blogService.getBlogs();
     }
 
-    @GetMapping("/memos/contents")
+    @GetMapping("/posts/{id}") // 선택 게시글 조회
     public List<BlogResponseDto> getBlogsByKeyword(@RequestParam String keyword) {
         return blogService.getBlogsByKeyword(keyword);
     }
 
-    @PutMapping("/memos/{id}")
+    @PutMapping("/posts/{id}") // 선택 게시글 수정
     public Long updateBlog(@PathVariable Long id, @RequestBody BlogRequestDto requestDto) {
         return blogService.updateBlog(id, requestDto);
     }
 
-    @DeleteMapping("/memos/{id}")
+    @DeleteMapping("/posts/{id}") // 선택 게시글 삭제
     public Long deleteBlog(@PathVariable Long id) {
         return blogService.deleteBlog(id);
     }

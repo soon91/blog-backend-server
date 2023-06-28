@@ -12,6 +12,7 @@ public class BlogResponseDto {
     private String contents;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private String title;
 
     public BlogResponseDto(Blog blog) {
         this.id = blog.getId();
@@ -19,5 +20,6 @@ public class BlogResponseDto {
         this.contents = blog.getContents();
         this.createdAt = blog.getCreatedAt();
         this.modifiedAt = blog.getModifiedAt();
+        this.title = blog.getTitle();
     }
 }
