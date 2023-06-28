@@ -37,7 +37,7 @@ public class BlogController {
     }
 
     @DeleteMapping("/posts/{id}") // 선택 게시글 삭제
-    public Long deleteBlog(@PathVariable Long id) {
-        return blogService.deleteBlog(id);
+    public String deleteBlog(@PathVariable Long id, @RequestBody BlogRequestDto requestDto) {
+        return blogService.deleteBlog(id, requestDto);
     }
 }

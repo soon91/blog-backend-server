@@ -55,14 +55,22 @@ public class BlogService {
         } else return new BlogResponseDto(blog);
     }
 
-    public Long deleteBlog(Long id) { // 선택 게시글 삭제
+    public String deleteBlog(Long id, BlogRequestDto requestDto) { // 선택 게시글 삭제
         // 해당 게시글이 DB에 존재하는지 확인
         Blog blog = findBlog(id);
+        String response = new String();
+        if (requestDto.getPassword().equals(blog.getPassword())) {
+            // 게시글 삭제
+            blogRepository.delete(blog);
+            response = "삭제 성공";
 
-        // 게시글 삭제
-        blogRepository.delete(blog);
+            return response;
+        } else {
+            response = "삭제 실패";
 
-        return id;
+            return response;
+        }
+
     }
 
     private Blog findBlog(Long id) {
