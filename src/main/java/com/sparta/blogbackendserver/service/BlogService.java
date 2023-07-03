@@ -47,35 +47,36 @@ public class BlogService {
     public BlogResponseDto updateBlog(Long id, BlogRequestDto requestDto) { // 선택 게시글 수정
         // 해당 게시글이 DB에 존재하는지 확인
         Blog blog = findBlog(id);
-        if (requestDto.getPassword().equals(blog.getPassword())) {
-            // 게시글 내용 수정
-            blog.update(requestDto);
+        // 비밀번호 확인
+        blog = passCheck(blog, requestDto);
+        // 게시글 내용 수정
+        blog.update(requestDto);
 
-            return new BlogResponseDto(blog);
-        } else return new BlogResponseDto(blog);
+        return new BlogResponseDto(blog);
     }
 
     public String deleteBlog(Long id, BlogRequestDto requestDto) { // 선택 게시글 삭제
         // 해당 게시글이 DB에 존재하는지 확인
         Blog blog = findBlog(id);
-        String response = new String();
-        if (requestDto.getPassword().equals(blog.getPassword())) {
-            // 게시글 삭제
-            blogRepository.delete(blog);
-            response = "삭제 성공";
+        // 비밀번호 확인
+        blog = passCheck(blog, requestDto);
+        // 게시글 삭제
+        blogRepository.delete(blog);
 
-            return response;
-        } else {
-            response = "삭제 실패";
-
-            return response;
-        }
-
+        return "게시글을 삭제했습니다.";
     }
 
     private Blog findBlog(Long id) {
         return blogRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 게시글은 존재하지 않습니다.")
         );
+    }
+
+    private Blog passCheck(Blog blog, BlogRequestDto requestDto) {
+        // 비밀번호 확인
+        if (!requestDto.getPassword().equals(blog.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        return blog;
     }
 }
